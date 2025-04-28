@@ -14,8 +14,8 @@ def copy_file(command: str) -> None:
         return
 
     try:
-        with (open(source_file, "r") as file_in,
-              open(dest_file, "w") as file_out):
+        with (open(source_file, "rb") as file_in,
+              open(dest_file, "wb") as file_out):
             file_out.write(file_in.read())
         print(f"File '{source_file}' successfully copied to '{dest_file}'.")
     except FileNotFoundError:
@@ -25,13 +25,13 @@ def copy_file(command: str) -> None:
 
 
 if __name__ == "__main__":
-    with open("file.txt", "w") as f:
-        f.write("This is the content of file.txt.\nIt has multiple lines.")
+    with open("file.txt", "wb") as f:
+        f.write("This is the content of file.txt.\n It has multiple lines.")
 
     copy_file("cp file.txt file.txt")
     copy_file("cp file.txt new_file.txt")
     if os.path.exists("new_file.txt"):
-        with open("file.txt", "r") as f1, open("new_file.txt", "r") as f2:
+        with open("file.txt", "rb") as f1, open("new_file.txt", "rb") as f2:
             print(
                 f"Content of file.txt equals new_file.txt: "
                 f"{f1.read() == f2.read()}"
